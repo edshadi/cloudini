@@ -1,0 +1,110 @@
+/*
+  globals
+*/
+
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+/*
+  sidebar
+*/
+
+#sidebar {
+  width: 25%;
+  background-color: #C5C6C7;
+  float: right;
+  min-height: 100%;
+  overflow-y: auto;
+  overflow-x: scroll;
+  z-index: 1000;
+  padding: 0;
+  font-size: 1.4em;
+}
+
+#sidebar-header {
+  text-align: center;
+  padding-top: 0.6em;
+  background-color: #1F2E3D;
+  height: 8%;
+  position: relative;
+  top: 0;
+  color: #fff;
+}
+
+#sidebar-body {
+  padding: 0.4em 0.4em 0 0.4em;
+}
+
+
+/*
+  threads
+*/
+
+.threads {
+  width: 90%;
+  margin: auto;
+  border: 0 0.125em 0.125em 0.125em solid #959A98;
+  border-bottom-left-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+  box-shadow: 0.1em 0.1em 0.1em 0.1em #ABAEAF;
+  background: #fff;
+  height: auto;
+  font-size: 0.7em;
+  margin: auto;
+}
+
+.timeline {
+  padding: 0 0 0.4em 0.4em;
+  color: #41454C;
+  font-weight: bold;
+}
+
+/*
+  thread
+*/
+
+.thread-file {
+  border: 0.2em solid #000;
+  padding: 0.2em;
+  height: 10%;
+  background: #EEEFF3;
+  border-radius: 0.5em;
+  position: relative;
+  left: -7%;
+  width: 110%;
+  margin-bottom: 0.5em;
+}
+
+.thread-file:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 32px 32px 0;
+  border-style: solid;
+}
+
+.thread-file.new-file-new-thread {
+  border-color: #5FB83C;
+}
+
+.thread-file.new-file-new-thread:before {
+  border-color: #EEEFF3 #5FB83C;
+}
+
+
+img.envelope {
+  width: 1.7em;
+}
+
+.message-count {
+  padding: 0.1em 0.4em;
+  background-color: #D1531C;
+}
+
+.thread-data {
+  background-color: #EEEFF3;
+}
