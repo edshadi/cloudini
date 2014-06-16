@@ -108,3 +108,9 @@ img.envelope {
 .thread-data {
   background-color: #EEEFF3;
 }
+
+.participant-gravatar img {
+  height: 1.7em;
+  width: 1.7em;
+  border-radius: 1em;
+}
