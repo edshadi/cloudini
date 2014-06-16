@@ -1,10 +1,30 @@
+var Faker = require('faker');
+var fakeUser = function() {
+  return {
+    name: Faker.Name.findName(),
+    avatar: Faker.Image.avatar()
+  }
+}
+
+var timeAgo = function(days) {
+    var date = new Date();
+    var future = date.getTime();
+    future -= Faker.random.number(days) * 24 * 60 * 60 * 1000; // some time from now to N days ago, in milliseconds
+    date.setTime(future)
+
+    return date.toJSON();
+}
+
 var Data = {
   makeMessage: function() {
+    var user = fakeUser();
+    var fileName = Faker.Lorem.words(1)[0] + '.pdf';
+    var messageTime = timeAgo();
     return {
-      fileName: this.makeName('file'),
-      participantName: "shadi",
-      participantAvatar: "https://secure.gravatar.com/avatar/519f2826b9395b79e5e12b98a80947a5.png?r=PG&d=mm&s=50",
-      messageTime: "Mrach 22nd 2014"
+      fileName: fileName,
+      participantName: user.name,
+      participantAvatar: user.avatar,
+      messageTime: messageTime
     }
   },
 
@@ -43,8 +63,8 @@ var Data = {
     var groupCount = Math.floor((Math.random() * 3) + 1);
     var groups = [];
     while(groupCount > 0) {
-      var date = new Date(today.getTime() + (groupCount * 24 * 60 * 60 * 1000));
-      groups.push(this.makeGroup({date: date.toDateString()}));
+      var date = timeAgo(groupCount)
+      groups.push(this.makeGroup({date: date}));
       groupCount--;
     }
     

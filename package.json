@@ -14,7 +14,8 @@
     "statics": "~0.1.0",
     "uglify-js": "~2.4.13",
     "watchify": "~0.4.1",
-    "jest-cli": "~0.1.5"
+    "jest-cli": "~0.1.5",
+    "faker": "~1.0.0"
   },
   "scripts": {
     "start": "STATIC_ROOT=./js watchify -o js/bundle.js -v -d .",
