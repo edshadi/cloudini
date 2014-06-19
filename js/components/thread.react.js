@@ -6,7 +6,7 @@ var Thread = React.createClass({
   render: function() {
     var messages = [];
     this.props.messages.forEach(function(message, index) {
-      messages.push(<Message key={index} fileName={message.fileName} participantAvatar={message.participantAvatar} participantName={message.participantName} messageTime={message.messageTime}/>)
+      messages.push(<Message key={index} file={message.file} participantAvatar={message.participantAvatar} participantName={message.participantName} messageTime={message.messageTime}/>)
     });
     return (
       <div className="thread">

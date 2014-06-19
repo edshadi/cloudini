@@ -9,19 +9,31 @@ var fakeUser = function() {
 var timeAgo = function(days) {
     var date = new Date();
     var future = date.getTime();
-    future -= Faker.random.number(days) * 24 * 60 * 60 * 1000; // some time from now to N days ago, in milliseconds
+    future -= days * 24 * 60 * 60 * 1000; // some time from now to N days ago, in milliseconds
     date.setTime(future)
 
-    return date.toJSON();
+    return date;
 }
 
+
 var Data = {
+  DAY_RANGE: 7,
+  MESSAGE_RANGE: 5,
+  GROUP_RANGE: 5,
+  THREAD_RANGE: 5,
+  
   makeMessage: function() {
     var user = fakeUser();
     var fileName = Faker.Lorem.words(1)[0] + '.pdf';
-    var messageTime = timeAgo();
+    var messageTime = timeAgo(Faker.random.number(this.GROUP_RANGE)).toDateString();
+    var fileStatuses = ["old", "new", "new-version"];
+    var fileTypes = ['pdf', 'jpg', 'png', 'doc']
     return {
-      fileName: fileName,
+      file: {
+        name: fileName,
+        type: fileTypes[Faker.random.number(fileTypes.length)],
+        status: fileStatuses[Faker.random.number(fileStatuses.length)]
+      },
       participantName: user.name,
       participantAvatar: user.avatar,
       messageTime: messageTime
@@ -29,7 +41,7 @@ var Data = {
   },
 
   makeThread: function() {
-    var messageCount = Math.floor((Math.random() * 5) + 1);
+    var messageCount = Math.floor((Math.random() * this.MESSAGE_RANGE) + 1);
     var messages = [];
     var i = 0;
     while(i < messageCount) {
@@ -38,14 +50,14 @@ var Data = {
     }
     
     return {
-      threadTitle: this.makeName('thread'),
+      threadTitle: Faker.Lorem.words(1)[0],
       unreadMessagesCount: messageCount,
       messages: messages
     }
   },
 
   makeGroup: function(opts) {
-    var threadCount = Math.floor((Math.random() * 5) + 1);
+    var threadCount = Math.floor((Math.random() * this.THREAD_RANGE) + 1);
     var threads = [];
     while(threadCount > 0) {
       threads.push(this.makeThread());
@@ -60,34 +72,16 @@ var Data = {
 
   makeGroups: function() {
     var today = new Date();
-    var groupCount = Math.floor((Math.random() * 3) + 1);
+    var groupCount = Math.floor((Math.random() * this.GROUP_RANGE) + 1);
     var groups = [];
-    while(groupCount > 0) {
-      var date = timeAgo(groupCount)
+    var index = 0;
+    while(index < groupCount) {
+      var date = timeAgo(index).toDateString();
       groups.push(this.makeGroup({date: date}));
-      groupCount--;
+      index++;
     }
     
     return groups;
-  },
-
-  makeName: function(type) {
-    var text = "";
-    var possible;
-    switch (type) {
-    case 'thread':
-      possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      break;
-    case 'file':
-      possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    default:
-      possible = "abcdefghijklmnopqrstuvwxyz";
-    }
-      
-    for( var i=0; i < 5; i++ ) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
   }
 }
 

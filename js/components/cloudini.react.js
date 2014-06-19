@@ -31,7 +31,6 @@ var Cloudini = React.createClass({
     })
     return (
       <div id="sidebar">
-        <a href='' onClick={this.handleClick}>refresh</a>
         {this.props.header}
         <div id="sidebar-body">
           {groups}

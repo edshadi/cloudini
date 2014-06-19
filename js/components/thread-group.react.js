@@ -11,7 +11,7 @@ var ThreadGroup = React.createClass({
       );
     });
     return (
-      <div id="thread-group">
+      <div className="thread-group">
         <div className="thread-group-date">
           {this.props.group.date}
         </div>

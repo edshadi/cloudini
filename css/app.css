@@ -43,6 +43,10 @@ body {
   threads
 */
 
+.thread-group {
+  padding: 0 0 1em 0;
+}
+
 .threads {
   width: 90%;
   margin: auto;
@@ -68,13 +72,13 @@ body {
 
 .thread-file {
   border: 0.2em solid #000;
-  padding: 0.2em;
+  padding: 0.4em;
   height: 10%;
   background: #EEEFF3;
   border-radius: 0.5em;
   position: relative;
   left: -7%;
-  width: 110%;
+  width: 108%;
   margin-bottom: 0.5em;
 }
 
@@ -87,15 +91,58 @@ body {
   border-style: solid;
 }
 
-.thread-file.new-file-new-thread {
+.thread-file img {
+  height: 1.7em;
+  width: 1.7em;
+  vertical-align: middle;
+  padding: 0 0.2em 0 0;
+}
+
+
+.thread-file.new {
   border-color: #5FB83C;
 }
 
-.thread-file.new-file-new-thread:before {
+.thread-file.new:before {
   border-color: #EEEFF3 #5FB83C;
 }
 
+.thread-file.old {
+  border-color: #d3d4d8;
+}
 
+.thread-file.old:before {
+  border-color: #EEEFF3 #ecedf1;
+}
+
+.thread-file.new-version {
+  border-color: #4293f7;
+}
+
+.thread-file.new-version:before {
+  border-color: #EEEFF3 #4293f7;
+}
+
+.file-actions span a, .file-actions span a:visited {
+  text-decoration: none;
+  color: #5A5A5A;
+  font-size: 0.8em;
+  margin-left: 2em;
+}
+
+.file-name {
+  color: #3f444c;
+  font-size: 1em;
+  margin-left: 0;
+}
+
+/*
+  message
+*/
+
+.message span {
+  padding: 0 0.3em 0 0;
+}
 img.envelope {
   width: 1.7em;
 }
@@ -109,8 +156,21 @@ img.envelope {
   background-color: #EEEFF3;
 }
 
+.thread-data span {
+  padding: 0 0.5em;
+}
+
 .participant-gravatar img {
   height: 1.7em;
   width: 1.7em;
   border-radius: 1em;
+}
+
+.message-participant {
+  padding: 0.5em 0;
+  color: #5A5A5A;
+}
+
+.participant-name {
+  text-decoration: underline;
 }
