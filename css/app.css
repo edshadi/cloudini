@@ -17,17 +17,24 @@ ul {
 /*
   sidebar
 */
-
-#sidebar {
+#cloudini {
+  position: fixed;
+  z-index: 9999;
+  right: 0;
+  top: 0;
   width: 25%;
   background-color: #C5C6C7;
-  float: right;
   min-height: 100%;
   overflow-y: auto;
   overflow-x: scroll;
   z-index: 1000;
   padding: 0;
   font-size: 1.4em;
+}
+
+#sidebar {
+  width: 100%;
+  overflow-x: scroll;
 }
 
 #sidebar-header {
