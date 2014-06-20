@@ -1,13 +1,15 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var SidebarHeader = React.createClass({displayName: 'SideBarHeader',
+var Menu = require('./menu.react');
+var SidebarHeader = React.createClass({
   render: function() {
     return (
-      React.DOM.div( {id:"sidebar-header"},
-        this.props.fileStream
-      )
-    )
+      <div id="sidebar-header">
+        <div classNme="stream-name">File Stream: {this.props.fileStream}</div>
+        <Menu/>
+      </div>
+    );
   }
 });
 

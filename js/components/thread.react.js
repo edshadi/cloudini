@@ -12,7 +12,7 @@ var Thread = React.createClass({
       <div className="thread">
         {messages}
         <div className="thread-data">
-          <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSVJcRO3VqNvqfSL--sTw2K1JdbqbZXrkXEHGADQ3Ke-CyNw4KB0g" className="envelope" alt="message" />
+          <img src="./images/cloudini-envelope.png" className="envelope" alt="message" />
           <span className="message-title">{this.props.threadTitle}</span>
           <span className="message-count">{this.props.unreadMessagesCount}</span>
         </div>

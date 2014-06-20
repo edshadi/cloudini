@@ -8,6 +8,12 @@ html {
 body {
   height: 100%;
 }
+.hidden {
+  display: none;
+}
+ul {
+  list-style: none;
+}
 /*
   sidebar
 */
@@ -25,8 +31,7 @@ body {
 }
 
 #sidebar-header {
-  text-align: center;
-  padding-top: 0.6em;
+  padding: 0.8em;
   background-color: #1F2E3D;
   height: 8%;
   position: relative;
@@ -173,4 +178,39 @@ img.envelope {
 
 .participant-name {
   text-decoration: underline;
+}
+
+/*
+  menu
+*/
+
+#menu {
+  position: absolute;
+  right: 0;
+  top: 1em;
+}
+
+img.menu-icon {
+  float: right;
+  padding: 0 0.5em;
+}
+
+#menu-content {
+  position: relative;
+  top: 2.23em;
+  background-color: #1F2E3D;
+  z-index: 1000;
+  right: 0;
+  font-size: 0.8em;
+  padding: 1.5em;
+}
+
+#menu ul {
+  padding: 0.5em 0 0 0;
+  margin: 0.2em;
+}
+
+#menu ul li a, #menu ul li a:visited {
+  color: white;
+  text-decoration: none;
 }
