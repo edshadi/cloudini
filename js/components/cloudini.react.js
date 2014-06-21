@@ -2,6 +2,7 @@
 
 var React = require('react');
 var ThreadGroup = require('./thread-group.react');
+var SidebarHeader = require('./sidebar-header.react');
 
 var Cloudini = React.createClass({
   getInitialState: function() {
@@ -31,7 +32,7 @@ var Cloudini = React.createClass({
     })
     return (
       <div id="sidebar">
-        {this.props.header}
+        <SidebarHeader fileStream="INBOX"/>
         <div id="sidebar-body">
           {groups}
         </div>
