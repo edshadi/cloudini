@@ -25,11 +25,16 @@ var Cloudini = React.createClass({
 
   render: function() {
     var groups = [];
-    this.state.threadGroups.forEach(function(group, index) {
+    for (var key in this.state.threadGroups) {
+      console.log(this.state.threadGroups)
+      var group = {
+        date: key,
+        threads: this.state.threadGroups[key]
+      }
       groups.push(
-        <ThreadGroup key={index} group={group} />
+        <ThreadGroup key={key} group={group} />
       );
-    })
+    }
     return (
       <div id="sidebar">
         <SidebarHeader fileStream="INBOX"/>

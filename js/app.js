@@ -3,7 +3,7 @@
 var React = require('react');
 
 var Cloudini = require('./components/cloudini.react');
-var data = require('./stores/data');
+var Data = require('./stores/data');
 var ThreadStore = require('./stores/thread-store');
 var cloudini = document.createElement('div');
 cloudini.setAttribute('id', "cloudini");
@@ -12,12 +12,62 @@ window.onload = function() {
   document.body.appendChild(cloudini);
   ThreadStore.allWithAttachements(function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      JSON.parse(body).forEach(function(thread) {
-        console.log(thread);
-      })
-      // React.renderComponent(<Cloudini threadGroups={[]}/>, cloudini);
+      var groups = makeGroups(JSON.parse(body));
+      React.renderComponent(<Cloudini threadGroups={groups}/>, cloudini);
     }
   })
+  // console.log(Data.makeThread().toString());
 }
 
-// var a = [{"type":"thread","unread":false,"threadId":"146866530f22d5d3","messageCount":10,"lastMessageDate":1402414116000,"inbox":true,"messages":[{"date":1402082685000,"type":"message","from":"Sarah Crain <ms.sarah.crain@gmail.com>","to":"Karim Mantawi <karimelmantawi@gmail.com>, Hanaa Badr <hanaabadr@gmail.com>, rehamshadi@gmail.com, ed shadi <edshadi@gmail.com>","messageId":"14672a40b4b83e3b","files":[{"fileId":"14672a40b4b83e3b:photo 1.JPG","isGoogleAppFile":false,"type":"file","size":115569,"messageId":"14672a40b4b83e3b","name":"photo 1.JPG","threadId":"146866530f22d5d3","contentType":"image/jpeg"},{"fileId":"14672a40b4b83e3b:photo 2.JPG","isGoogleAppFile":false,"type":"file","size":107876,"messageId":"14672a40b4b83e3b","name":"photo 2.JPG","threadId":"146866530f22d5d3","contentType":"image/jpeg"},{"fileId":"14672a40b4b83e3b:photo 3.JPG","isGoogleAppFile":false,"type":"file","size":144963,"messageId":"14672a40b4b83e3b","name":"photo 3.JPG","threadId":"146866530f22d5d3","contentType":"image/jpeg"}],"fromMe":false,"threadId":"146866530f22d5d3","read":false,"subject":"Maryam"}],"subject":"Maryam"}] 
+function makeGroups(gmailThreads) {
+  var groups = {};
+  gmailThreads.forEach(function(thread) {
+    var thread = JSON.parse(thread)[0];
+    var date = normalizeDate(thread.lastMessageDate);
+    groups[date] = groups[date] || [];
+    groups[date].push(makeThread(thread));
+  })
+  return groups;
+}
+function makeThread(gmailThread) {
+  return {
+    threadTitle: gmailThread.subject,
+    unreadMessagesCount: gmailThread.messageCount,
+    messages: makeMessages(gmailThread.messages)
+  }
+}
+
+function makeMessages(gmailMessages) {
+  if(gmailMessages === undefined) return [];
+  var messages = [];
+  gmailMessages.forEach(function(message){
+    messages.push({
+      id: message.messageId,
+      files: makeFiles(message.files, message.read),
+      participantName: normalizeFrom(message.from),
+      messageTime: normalizeDate(message.date)
+    })
+  })
+  return messages;
+
+}
+
+function normalizeFrom(from) {
+  return from.split("<")[0].trim();
+}
+
+function normalizeDate(timestamp) {
+  return new Date(timestamp).toDateString();
+}
+function makeFiles(gmailAttachments, messageStatus) {
+  var attachments = [];
+  gmailAttachments.forEach(function(attachment){
+    attachments.push({
+      id: attachment.fileId,
+      name: attachment.name,
+      type: attachment.contentType,
+      status: messageStatus
+    })
+  })
+  return attachments;
+}

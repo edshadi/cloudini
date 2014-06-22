@@ -1,15 +1,19 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+var Faker = require('faker');
 var File = React.createClass({
   render: function() {
     var file = this.props.file;
-    var classes = ["thread-file", file.status].join(" ");
+    var fileStatuses = ["old", "new", "new-version"];
+    var classes = ["thread-file", "pdf"].join(" ");
     var fileIcons = {
       pdf: "http://www.leopoldjones.com/_kepek/icons/pdf.png",
       jpg: "http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png",
+      jpeg: "http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png",
       png: "http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-4/256/PNG-icon.png",
-      doc: "http://www.iconhot.com/icon/png/file-icons-vs-2/256/doc-3.png"
+      doc: "http://www.iconhot.com/icon/png/file-icons-vs-2/256/doc-3.png",
+      docx: "http://www.iconhot.com/icon/png/file-icons-vs-2/256/doc-3.png"
     }
     return (
       <div className={classes}>

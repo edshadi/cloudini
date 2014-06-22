@@ -29,11 +29,13 @@ var Data = {
     var fileStatuses = ["old", "new", "new-version"];
     var fileTypes = ['pdf', 'jpg', 'png', 'doc']
     return {
-      file: {
-        name: fileName,
-        type: fileTypes[Faker.random.number(fileTypes.length)],
-        status: fileStatuses[Faker.random.number(fileStatuses.length)]
-      },
+      files: [
+        {
+          name: fileName,
+          type: fileTypes[Faker.random.number(fileTypes.length)],
+          status: fileStatuses[Faker.random.number(fileStatuses.length)]
+        }
+      ],
       participantName: user.name,
       participantAvatar: user.avatar,
       messageTime: messageTime

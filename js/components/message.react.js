@@ -4,9 +4,15 @@ var React = require('react');
 var File = require('./file.react');
 var Message = React.createClass({
   render: function() {
+    var files = [];
+    this.props.files.forEach(function(file, index) {
+      files.push(
+        <File file={file}/>
+      );
+    });
     return (
       <div className="message">
-        <File file={this.props.file}/>
+        {files}
         <div className="message-participant">
           <span className="participant-gravatar">
           <img src={this.props.participantAvatar} alt="avatar" />
