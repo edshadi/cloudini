@@ -7,7 +7,7 @@ var ThreadGroup = React.createClass({
     var threads = [];
     this.props.group.threads.forEach(function(thread, index) {
       threads.push(
-        <Thread key={index} messages={thread.messages} threadTitle={thread.threadTitle} unreadMessagesCount={thread.unreadMessagesCount}/>
+        <Thread key={index} thread={thread}/>
       );
     });
     return (

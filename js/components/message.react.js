@@ -4,23 +4,27 @@ var React = require('react');
 var File = require('./file.react');
 var Message = React.createClass({
   render: function() {
+    var message = this.props.message;
     var files = [];
-    this.props.files.forEach(function(file, index) {
-      files.push(
-        <File file={file}/>
-      );
+    var avatar = message.participantAvatar || './images/avatar.jpeg';
+    message.files.forEach(function(file, index) {
+      if (file.name !== "noname") { // edge case: file has no name or type.
+        files.push(
+          <File file={file}/>
+        );
+      }
     });
     return (
       <div className="message">
         {files}
         <div className="message-participant">
           <span className="participant-gravatar">
-          <img src={this.props.participantAvatar} alt="avatar" />
+          <img src={avatar} alt="avatar" />
           </span>
           <span className="participant-name">
-            {this.props.participantName}
+            {message.from}
           </span>
-          <span className="message-time">{this.props.messageTime}</span>
+          <span className="message-time">{message.date}</span>
         </div>
       </div>
     )

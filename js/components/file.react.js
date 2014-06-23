@@ -5,19 +5,11 @@ var Faker = require('faker');
 var File = React.createClass({
   render: function() {
     var file = this.props.file;
-    var fileStatuses = ["old", "new", "new-version"];
-    var classes = ["thread-file", "pdf"].join(" ");
-    var fileIcons = {
-      pdf: "http://www.leopoldjones.com/_kepek/icons/pdf.png",
-      jpg: "http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png",
-      jpeg: "http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png",
-      png: "http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-4/256/PNG-icon.png",
-      doc: "http://www.iconhot.com/icon/png/file-icons-vs-2/256/doc-3.png",
-      docx: "http://www.iconhot.com/icon/png/file-icons-vs-2/256/doc-3.png"
-    }
+    var fileStatus = file.read ? "new" : "old"
+    var classes = ["thread-file", "pdf", fileStatus].join(" ");
     return (
       <div className={classes}>
-        <img src={fileIcons[file.type]} alt={file.type}/>
+        <span className="file-icon">{file.type}</span>
         <span className="file-name">{file.name}</span>
         <div className="file-actions">
           <span><a href="#">Preview</a></span>

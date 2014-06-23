@@ -1,29 +1,30 @@
 /** @jsx React.DOM */
-
+// JSON.stringify(groups, null, "  ");
 var React = require('react');
 
 var Cloudini = require('./components/cloudini.react');
 var Data = require('./stores/data');
 var ThreadStore = require('./stores/thread-store');
 var cloudini = document.createElement('div');
+var gmailThreads = require('./stores/gmailThreads');
 cloudini.setAttribute('id', "cloudini");
 
 window.onload = function() {
   document.body.appendChild(cloudini);
-  ThreadStore.allWithAttachements(function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      var groups = makeGroups(JSON.parse(body));
-      React.renderComponent(<Cloudini threadGroups={groups}/>, cloudini);
-    }
-  })
-  // console.log(Data.makeThread().toString());
+  // ThreadStore.allWithAttachements(function (error, response, body) {
+  //   if (!error && response.statusCode == 200) {
+  //     var groups = makeGroups(JSON.parse(body));
+  //     debugger;
+  //   }
+  // })
+  React.renderComponent(<Cloudini threadGroups={gmailThreads}/>, cloudini);
 }
-
 function makeGroups(gmailThreads) {
   var groups = {};
   gmailThreads.forEach(function(thread) {
     var thread = JSON.parse(thread)[0];
     var date = normalizeDate(thread.lastMessageDate);
+    if(date === "Invalid Date" || thread.messages.length === 0) return;
     groups[date] = groups[date] || [];
     groups[date].push(makeThread(thread));
   })
@@ -31,8 +32,8 @@ function makeGroups(gmailThreads) {
 }
 function makeThread(gmailThread) {
   return {
-    threadTitle: gmailThread.subject,
-    unreadMessagesCount: gmailThread.messageCount,
+    subject: gmailThread.subject,
+    messageCount: gmailThread.messageCount,
     messages: makeMessages(gmailThread.messages)
   }
 }
@@ -42,16 +43,28 @@ function makeMessages(gmailMessages) {
   var messages = [];
   gmailMessages.forEach(function(message){
     messages.push({
-      id: message.messageId,
+      messageId: message.messageId,
       files: makeFiles(message.files, message.read),
-      participantName: normalizeFrom(message.from),
-      messageTime: normalizeDate(message.date)
+      from: normalizeFrom(message.from),
+      date: normalizeDate(message.date)
     })
   })
   return messages;
 
 }
 
+function makeFiles(gmailAttachments, read) {
+  var attachments = [];
+  gmailAttachments.forEach(function(attachment){
+    attachments.push({
+      fileId: attachment.fileId,
+      name: attachment.name,
+      type: normalizeFileType(attachment.name),
+      read: read
+    })
+  })
+  return attachments;
+}
 function normalizeFrom(from) {
   return from.split("<")[0].trim();
 }
@@ -59,15 +72,8 @@ function normalizeFrom(from) {
 function normalizeDate(timestamp) {
   return new Date(timestamp).toDateString();
 }
-function makeFiles(gmailAttachments, messageStatus) {
-  var attachments = [];
-  gmailAttachments.forEach(function(attachment){
-    attachments.push({
-      id: attachment.fileId,
-      name: attachment.name,
-      type: attachment.contentType,
-      status: messageStatus
-    })
-  })
-  return attachments;
+
+function normalizeFileType(fileName) {
+  var fileTypes = fileName.split(".");
+  return fileTypes[fileTypes.length-1];
 }

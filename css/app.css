@@ -154,10 +154,19 @@ ul {
 */
 
 .message span {
-  padding: 0 0.3em 0 0;
+  padding: 0.5em;
 }
+.message span.file-icon {
+  border: solid 0.1em;
+  background-color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.2em;
+}
+
 img.envelope {
-  width: 1.7em;
+  width: 1.2em;
+  vertical-align: middle;
 }
 
 .message-count {
