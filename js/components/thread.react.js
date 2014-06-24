@@ -12,13 +12,19 @@ var Thread = React.createClass({
     return (
       <div className="thread">
         {messages}
-        <div className="thread-data">
-          <img src="./images/cloudini-envelope.png" className="envelope" alt="message" />
-          <span className="message-title">{thread.subject}</span>
-          <span className="message-count">{thread.messageCount}</span>
-        </div>
+        <ul className="thread-data">
+          <li className="message-envelop"><img src="./images/cloudini-envelope.png" className="envelope" alt="message" /></li>
+          <li className="message-title">{this.shortenSubject()}</li>
+          <li className="message-count"><span>{thread.messageCount}</span></li>
+        </ul>
       </div>
     )
+  },
+
+  shortenSubject: function() {
+    var n = 16;
+    var subject = this.props.thread.subject;
+    return subject.length > n ? subject.substr(0, n-1)+'...' : subject;
   }
 });
 

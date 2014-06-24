@@ -51,6 +51,14 @@ ul {
   overflow: scroll;
 }
 
+/*
+  thread group
+*/
+
+.thread-group-date {
+  font-size: 0.8em;
+  padding-bottom: 0.6em;
+}
 
 /*
   threads
@@ -67,7 +75,6 @@ ul {
   border-bottom-left-radius: 0.2em;
   border-bottom-right-radius: 0.2em;
   box-shadow: 0.1em 0.1em 0.1em 0.1em #ABAEAF;
-  background: #fff;
   height: auto;
   font-size: 0.7em;
   margin: auto;
@@ -82,6 +89,11 @@ ul {
 /*
   thread
 */
+
+.thread {
+  background: #fff;
+  margin-bottom: 1em;
+}
 
 .thread-file {
   border: 0.2em solid #000;
@@ -136,6 +148,10 @@ ul {
   border-color: #EEEFF3 #4293f7;
 }
 
+.file-actions {
+  margin-left: 1em;
+}
+
 .file-actions span a, .file-actions span a:visited {
   text-decoration: none;
   color: #5A5A5A;
@@ -143,6 +159,9 @@ ul {
   margin-left: 2em;
 }
 
+.message .file-actions span {
+  padding: 0;
+}
 .file-name {
   color: #3f444c;
   font-size: 1em;
@@ -169,17 +188,51 @@ img.envelope {
   vertical-align: middle;
 }
 
-.message-count {
-  padding: 0.1em 0.4em;
-  background-color: #D1531C;
-}
-
 .thread-data {
   background-color: #EEEFF3;
+  margin: 0;
+  padding: 0;
+  min-height: 2em;
+}
+
+.thread-data li {
+  float: left;
+  margin: 0.3em;
+}
+
+.thread-data li.message-count {
+  float: right;
+  margin-right: 0.5em;
+}
+
+.thread-data li.message-title {
+  margin-left: 1em;
+}
+
+.thread-data .message-count {
+  display: table;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: #D1531C;
+  border-radius: 0.2em;
+}
+
+.thread-data .message-count span {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  color: white
 }
 
 .thread-data span {
   padding: 0 0.5em;
+}
+
+.thread-data span.message-count {
+  background-color: #D1531C;\
+  padding: 0.2em 0.4em;
+  width: 1em;
+  border-radius: 0.2em;
 }
 
 .participant-gravatar img {
