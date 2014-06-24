@@ -9,6 +9,7 @@ var Message = React.createClass({
     var avatar = message.participantAvatar || './images/avatar.jpeg';
     message.files.forEach(function(file, index) {
       if (file.name !== "noname") { // edge case: file has no name or type.
+        file.attid = index+1;
         files.push(
           <File file={file}/>
         );
