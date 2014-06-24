@@ -13,16 +13,20 @@ window.onload = function() {
   document.body.appendChild(cloudini);
   // ThreadStore.allWithAttachements(function (error, response, body) {
   //   if (!error && response.statusCode == 200) {
-  //     var groups = makeGroups(JSON.parse(body));
-  //     debugger;
+  //     var threads = []
+  //     JSON.parse(body).forEach(function(thread){
+  //       var threadJSON = JSON.parse(thread)[0];
+  //       if(typeof threadJSON === 'object') threads.push(threadJSON);
+  //     })
+  //     console.log(JSON.stringify(threads, null, "  "));
   //   }
   // })
-  React.renderComponent(<Cloudini threadGroups={gmailThreads}/>, cloudini);
+  React.renderComponent(<Cloudini threadGroups={makeGroups(gmailThreads)}/>, cloudini);
 }
 function makeGroups(gmailThreads) {
   var groups = {};
   gmailThreads.forEach(function(thread) {
-    var thread = JSON.parse(thread)[0];
+    // var thread = JSON.parse(thread)[0];
     var date = normalizeDate(thread.lastMessageDate);
     if(date === "Invalid Date" || thread.messages.length === 0) return;
     groups[date] = groups[date] || [];
