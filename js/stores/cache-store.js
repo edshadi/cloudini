@@ -1495,3 +1495,4 @@ module.exports = [
     "subject": "[GitHub] Payment Receipt"
   }
 ]
+

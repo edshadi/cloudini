@@ -10,6 +10,7 @@ var Message = React.createClass({
     message.files.forEach(function(file, index) {
       if (file.name !== "noname") { // edge case: file has no name or type.
         file.attid = index+1;
+        file.read = message.read;
         files.push(
           <File file={file}/>
         );

@@ -8,7 +8,7 @@ var Thread = React.createClass({
     var thread = this.props.thread;
     var unreadMessagesCount = 0;
     thread.messages.forEach(function(message, index) {
-      if(this.mailDeliveryNotice(message)) return;
+      if(this.mailDeliveryNotice(message)) return; // TODO: this feels weird here, move it.
       if(!message.read) unreadMessagesCount++;
       messages.push(<Message key={index} message={message} />)
     }.bind(this));
