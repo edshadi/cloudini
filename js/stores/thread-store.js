@@ -1,6 +1,8 @@
 var request = require('browser-request')
   , constants = require('../constants/constants')
   , cacheStore = require('./cache-store')
+  , events = require('events')
+  , emitter = new events.EventEmitter()
   ;
 
 var makeGroups = function(gmailThreads) {
@@ -72,11 +74,25 @@ module.exports = {
         var threadJSON = JSON.parse(thread)[0];
         if(typeof threadJSON === 'object') threads.push(threadJSON);
       })
+      this.emit('threadChange', makeGroups(threads));
       // console.log(JSON.stringify(threads, null, "  "));
-      callback(makeGroups(threads));
-    });
+      // callback(makeGroups(threads));
+    }.bind(this));
   },
   fromCache: function(callback) {
-    callback(makeGroups(cacheStore));
-  }
+    var groups = makeGroups(cacheStore);
+    // callback(groups);
+    this.emit('threadChange', groups);
+  },
+
+  newCache: function() {
+    var groups = makeGroups(cacheStore);
+    groups[normalizeDate(1402414116000)].push({
+      subject: "testing refresh",
+      messages: []
+    })
+    this.emit('threadChange', groups);
+  },
+  on: emitter.on,
+  emit: emitter.emit
 };
