@@ -1,14 +1,26 @@
 /** @jsx React.DOM */
 
-var React = require('react');
-var ThreadGroup = require('./thread-group.react');
-var SidebarHeader = require('./sidebar-header.react');
+var React = require('react')
+  , ThreadGroup = require('./thread-group.react')
+  , SidebarHeader = require('./sidebar-header.react')
+  , ThreadStore = require('../stores/thread-store')
+  ;
 
-var Cloudini = React.createClass({
+module.exports = React.createClass({
+
   getInitialState: function() {
     return {
-      threadGroups: this.props.threadGroups
+      threadGroups: []
     }
+  },
+
+  componentWillMount: function() {
+    ThreadStore.on('threadChange', function(groups) {
+      this.setState({
+        threadGroups: groups
+      })
+    }.bind(this))
+    ThreadStore.fromCache();
   },
 
   handleClick: function() {
@@ -23,7 +35,13 @@ var Cloudini = React.createClass({
     })
   },
 
+  refresh: function() {
+    event.preventDefault();
+    ThreadStore.newCache();
+  },
+
   render: function() {
+
     var groups = [];
     for (var key in this.state.threadGroups) {
       console.log(this.state.threadGroups)
@@ -37,6 +55,7 @@ var Cloudini = React.createClass({
     }
     return (
       <div id="sidebar">
+        <a href="" className="refresh" onClick={this.refresh}>Refresh</a>
         <SidebarHeader fileStream="INBOX"/>
         <div id="sidebar-body">
           {groups}
@@ -45,5 +64,3 @@ var Cloudini = React.createClass({
     );
   }
 });
-
-module.exports = Cloudini;
