@@ -68,16 +68,37 @@ var normalizeFileType = function(fileName) {
 
 module.exports = {
   allWithAttachements: function(callback) {
-    request("https://script.google.com/macros/s/AKfycbxEbFXgtm2FFQIxEQ0SJrxnFRoI2K7joCoXXIZHr37shqxXShvh/exec", function(error, response, body) {
+    var oReq = new XMLHttpRequest();
+    oReq.onload = function(xhr) {
       var threads = []
-      JSON.parse(body).forEach(function(thread){
+      debugger
+      JSON.parse(xhr.target.response).forEach(function(thread){
         var threadJSON = JSON.parse(thread)[0];
         if(typeof threadJSON === 'object') threads.push(threadJSON);
       })
-      this.emit('threadChange', makeGroups(threads));
+      console.log(threads)
+      // this.emit('threadChange', makeGroups(threads));
       // console.log(JSON.stringify(threads, null, "  "));
       // callback(makeGroups(threads));
-    }.bind(this));
+    }
+    var gasLink = "https://script.google.com/macros/s/AKfycbxEbFXgtm2FFQIxEQ0SJrxnFRoI2K7joCoXXIZHr37shqxXShvh/exec";
+    console.log(gasLink)
+    oReq.open("get", gasLink);
+    oReq.setRequestHeader("Cache-Control", "no-cache");
+    oReq.setRequestHeader("Access-Control-Allow-Origin", "*");
+    oReq.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT")
+    oReq.send();
+    // request(gasLink, {search: 'maryam'}, function(error, response, body) {
+    //   var threads = []
+    //   debugger;
+    //   JSON.parse(body).forEach(function(thread){
+    //     var threadJSON = JSON.parse(thread)[0];
+    //     if(typeof threadJSON === 'object') threads.push(threadJSON);
+    //   })
+    //   this.emit('threadChange', makeGroups(threads));
+    //   // console.log(JSON.stringify(threads, null, "  "));
+    //   // callback(makeGroups(threads));
+    // }.bind(this));
   },
   fromCache: function(callback) {
     var groups = makeGroups(cacheStore);

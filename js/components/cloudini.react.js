@@ -16,11 +16,12 @@ module.exports = React.createClass({
 
   componentWillMount: function() {
     ThreadStore.on('threadChange', function(groups) {
+      console.log("setting state")
       this.setState({
         threadGroups: groups
       })
     }.bind(this))
-    ThreadStore.fromCache();
+    ThreadStore.allWithAttachements();
   },
 
   handleClick: function() {

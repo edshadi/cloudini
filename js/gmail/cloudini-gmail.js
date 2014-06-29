@@ -1,3 +1,5 @@
+var ThreadStore = require('../stores/thread-store')
+;
 module.exports = {
   init: function() {
     this.currentNumUnread = this.numUnread();
@@ -8,7 +10,10 @@ module.exports = {
         var title = /\((\d+)\)/.exec(mut.target.title);
         return title && this.currentUnread !== parseInt(title[1]);
       })
-      if(changed) console.log(this.numUnread())
+      if(changed) {
+        console.log(this.numUnread());
+        ThreadStore.allWithAttachements();
+      }
     }.bind(this));
 
     var config = { subtree: true, attributeFilter: ["tabindex"]}
@@ -21,10 +26,10 @@ module.exports = {
 
   navigationEl: function() {
     return document.querySelector('div[role="navigation"]');
-  }
+  },
 
   numUnread: function() {
-    var title = this.inboxLink().title;
+    var title = this.inboxEl().title;
     var count = /\((\d+)\)/.exec(title);
     return (count && count[1]) ? parseInt(count[1]) : 0;
   }

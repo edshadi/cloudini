@@ -2,12 +2,27 @@
 // JSON.stringify(groups, null, "  ");
 var React = require('react')
   , Cloudini = require('./components/cloudini.react')
+  , CloudiniGmail = require('./gmail/cloudini-gmail')
   ;
 
-var cloudini = document.createElement('div');
-cloudini.setAttribute('id', "cloudini");
+var CloudiniApp = {
+  init: function() {
+    this.createSidebar();
+    this.bindEvents();
+  },
 
-window.onload = function() {
-  document.body.appendChild(cloudini);
-  React.renderComponent(<Cloudini />, cloudini);
+  createSidebar: function() {
+    this.sidebarEl = document.createElement('div');
+    this.sidebarEl.setAttribute('id', "cloudini");
+  },
+
+  bindEvents: function() {
+    window.onload = function() {
+      document.body.appendChild(this.sidebarEl);
+      React.renderComponent(<Cloudini />, this.sidebarEl);
+      CloudiniGmail.init();
+    }.bind(this)
+  }
 }
+
+CloudiniApp.init();
