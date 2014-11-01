@@ -2,19 +2,19 @@
 
 var React = require('react');
 var Faker = require('faker');
-var File = React.createClass({
+var Attachment = React.createClass({
   render: function() {
-    this.file = this.props.file;
-    var fileStatus = this.file.read ? "old" : "new";
+    this.attachment = this.props.attachment;
+    var fileStatus = this.attachment.read ? "old" : "new";
     var classes = ["thread-file", "pdf", fileStatus].join(" ");
     return (
       <div className={classes}>
-        <span className="file-icon">{this.file.type}</span>
-        <span className="file-name">{this.file.name}</span>
+        <span className="file-icon">{this.attachment.type}</span>
+        <span className="file-name">{this.attachment.name}</span>
         <div className="file-actions">
           <span><a href={this.previewLink()} target="_blank">Preview</a></span>
           <span><a href={this.downloadLink()}>Download</a></span>
-          <span><a href="#">3 Previous Versions</a></span>
+          <span><a href="#">3 Versions</a></span>
         </div>
       </div>
     );
@@ -31,15 +31,15 @@ var File = React.createClass({
   },
 
   attid: function() {
-    return "attid="+this.file.attid/10; // google indexes attachements per message: 0.1, 0.2, etc.
+    return "attid="+1/10; // google indexes attachements per message: 0.1, 0.2, etc.
   },
 
   th: function() {
-    return "th="+this.file.fileId.split(":")[0];
+    return "th="+this.attachment.id.split(":")[0];
   },
 
   baseActionLink: function() {
     return "https://mail.google.com/mail/u/0/?view=att&ui=2&ik=2453bc22ca";
   }
 });
-module.exports = File;
+module.exports = Attachment;

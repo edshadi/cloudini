@@ -1,24 +1,24 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var File = require('./file.react');
+var Attachment = require('./attachment.react');
 var Message = React.createClass({
   render: function() {
-    var message = this.props.message;
+    var avatar = this.props.message.participantAvatar ||  chrome.extension.getURL('../images/avatar.jpeg');
+    var date = new Date(this.props.message.date).toDateString();
     var attachments = [];
-    var avatar = message.participantAvatar ||  chrome.extension.getURL('../images/avatar.jpeg');
-    // message.files.forEach(function(file, index) {
-    //   if (file.name !== "noname") { // edge case: file has no name or type.
-    //     file.attid = index+1;
-    //     file.read = message.read;
-    //     files.push(
-    //       <File file={file}/>
-    //     );
-    //   }
-    // });
-    var date = new Date(message.date).toDateString();
+    console.log(this.props.message)
+    if(this.props.message.attachments) {
+      this.props.message.attachments.forEach(function(attachment) {
+        attachment.read = true;
+        attachments.push(<Attachment attachment={attachment} />);
+      });
+    }
     return (
       <div className="message-participant">
+        <div className="message">
+          {attachments}
+        </div>
         <span className="participant-gravatar">
         <img src={avatar} alt="avatar" />
         </span>

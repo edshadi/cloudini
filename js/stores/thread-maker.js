@@ -5,8 +5,7 @@ module.exports = {
     data.forEach(function(t) {
       var thread = {
         id: t.id,
-        messages: [],
-        attachments: []
+        messages: []
       }
       t.messages.forEach(function(m) {
         var message = {
@@ -18,15 +17,19 @@ module.exports = {
           if(header.name == "Date") message.date = header.value;
           if(header.name == "Subject") message.subject = header.value;
         }.bind(this));
-        thread.messages.push(message);
         m.payload.parts.forEach(function(part) {
           if(part.body.attachmentId){
-            thread.attachments.push({
+            var type = part.filename.split(".");
+            type = type[1] ? type[1] : type[0];
+            message.attachments = [];
+            message.attachments.push({
+              type: type,
               name: part.filename,
               id: part.body.attachmentId
             })
           }
         });
+        thread.messages.push(message);
         thread.date = thread.messages[thread.messages.length-1].date;
         thread.subject = thread.messages[thread.messages.length-1].subject;
         thread.messageCount = thread.messages.length;
