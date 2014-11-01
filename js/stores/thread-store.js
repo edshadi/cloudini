@@ -3,6 +3,9 @@ var request = require('browser-request')
   , cacheStore = require('./cache-store')
   , events = require('events')
   , emitter = new events.EventEmitter()
+  , Firebase = require("firebase")
+  , firebaseCache = require('./firebase-cache')
+  , threadMaker = require('./thread-maker')
   ;
 
 var makeGroups = function(gmailThreads) {
@@ -68,23 +71,20 @@ var normalizeFileType = function(fileName) {
 
 module.exports = {
   allWithAttachements: function(callback) {
-    request("https://script.google.com/macros/s/AKfycbxEbFXgtm2FFQIxEQ0SJrxnFRoI2K7joCoXXIZHr37shqxXShvh/exec", function(error, response, body) {
-      var threads = []
-      JSON.parse(body).forEach(function(thread){
-        var threadJSON = JSON.parse(thread)[0];
-        if(typeof threadJSON === 'object') threads.push(threadJSON);
-      })
-      this.emit('threadChange', makeGroups(threads));
-      // console.log(JSON.stringify(threads, null, "  "));
-      // callback(makeGroups(threads));
-    }.bind(this));
+    var fb = new Firebase('https://cloudini-extension.firebaseio.com/')
+    fb.child("users/edshadi").on("value", function(snapshot) {
+      console.log(snapshot.val());  // Alerts "San Francisco"
+    });
   },
   fromCache: function(callback) {
     var groups = makeGroups(cacheStore);
     // callback(groups);
     this.emit('threadChange', groups);
   },
-
+  fromFirebaseCache: function(callback) {
+    threadMaker.create(firebaseCache.edshadi.threads);
+    this.emit('threadChange', threadMaker.groups);
+  },
   newCache: function() {
     var groups = makeGroups(cacheStore);
     groups[normalizeDate(1402414116000)].push({

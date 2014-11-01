@@ -10,7 +10,7 @@ module.exports = React.createClass({
 
   getInitialState: function() {
     return {
-      threadGroups: []
+      threadGroups: {}
     }
   },
 
@@ -20,7 +20,7 @@ module.exports = React.createClass({
         threadGroups: groups
       })
     }.bind(this))
-    ThreadStore.fromCache();
+    ThreadStore.fromFirebaseCache();
   },
 
   handleClick: function() {
@@ -41,10 +41,8 @@ module.exports = React.createClass({
   },
 
   render: function() {
-
     var groups = [];
-    for (var key in this.state.threadGroups) {
-      console.log(this.state.threadGroups)
+    Object.keys(this.state.threadGroups).forEach(function(key) {
       var group = {
         date: key,
         threads: this.state.threadGroups[key]
@@ -52,10 +50,9 @@ module.exports = React.createClass({
       groups.push(
         <ThreadGroup key={key} group={group} />
       );
-    }
+    }.bind(this))
     return (
       <div id="sidebar">
-        <a href="" className="refresh" onClick={this.refresh}>Refresh</a>
         <SidebarHeader fileStream="INBOX"/>
         <div id="sidebar-body">
           {groups}

@@ -10,7 +10,7 @@ var Menu = React.createClass({
   render: function() {
     return (
       <div id="menu">
-        <img src="./images/cloudini-menu-icon.png" alt="Menu" className="menu-icon" onClick={this.showMenu}/>
+        <img src={chrome.extension.getURL("../images/cloudini-menu-icon.png")} alt="Menu" className="menu-icon" onClick={this.showMenu}/>
         <div id="menu-content" className={this.state.content}>
           Show files from
           <ul>
@@ -23,13 +23,13 @@ var Menu = React.createClass({
             <li><a href="#">Unread Messages</a></li>
             <li><a href="#">All Messages</a></li>
           </ul>
-          
-          
+
+
         </div>
       </div>
     );
   },
-  
+
   showMenu: function() {
     var contentState = this.state.content === 'hidden' ? null : 'hidden';
     this.setState({

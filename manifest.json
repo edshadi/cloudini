@@ -1,7 +1,10 @@
 {
   "name": "Cloudini Flux",
-  "version": "0.1",
+  "version": "0.2",
   "description": "Project Mangement right in your gmail",
+  "background": {
+    "page": "./js/background/background.html"
+  },
   "content_scripts": [
     {
       "matches": [
@@ -12,11 +15,21 @@
       "run_at": "document_end"
     }
   ],
+  "content_security_policy": "script-src 'self' https://cdn.firebase.com https://*.firebaseio.com; object-src 'self'",
+
   "permissions": [
+    "identity",
+    "https://mail.google.com/",
     "https://script.google.com/*",
     "https://accounts.google.com/o/oauth2/token",
     "https://script.google.com/"
   ],
+  "oauth2": {
+    "client_id": "369408275713-ob68ojhic3mtkutk7tmqmkju6grqbhdm.apps.googleusercontent.com",
+    "scopes": [
+      "https://mail.google.com/"
+    ]
+  },
   "manifest_version" : 2,
   "web_accessible_resources" : ["images/*"]
 }

@@ -5,9 +5,9 @@ var Thread = require('./thread.react');
 var ThreadGroup = React.createClass({
   render: function() {
     var threads = [];
-    this.props.group.threads.forEach(function(thread, index) {
+    this.props.group.threads.forEach(function(thread) {
       threads.push(
-        <Thread key={index} thread={thread}/>
+        <Thread thread={thread}/>
       );
     });
     return (
