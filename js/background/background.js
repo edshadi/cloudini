@@ -34,13 +34,13 @@ var App = (function() {
       this.request('GET', url, success, fail)
     },
     getTopMessages: function() {
-      this.messages.slice(0, 20).forEach(function(message) {
+      this.messages.forEach(function(message) {
         this.getMessage(message.id)
       }.bind(this))
       this.archive();
     },
     getTopThreads: function() {
-      this.threads.slice(0, 20).forEach(function(thread) {
+      this.threads.forEach(function(thread) {
         this.getThread(thread.id)
       }.bind(this))
       this.archiveGroups();

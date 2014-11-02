@@ -3,6 +3,7 @@
 var React = require('react')
   , ThreadGroup = require('./thread-group.react')
   , SidebarHeader = require('./sidebar-header.react')
+  , Launcher = require('./launcher.react')
   ;
 
 var Sidebar = React.createClass({
@@ -19,6 +20,7 @@ var Sidebar = React.createClass({
     }.bind(this))
     return (
       <div id="sidebar">
+        <Launcher label="- C" handleClick={this.props.hideSidebar} />
         <SidebarHeader fileStream="INBOX"/>
         <div id="sidebar-body">
           {groups}

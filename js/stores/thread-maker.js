@@ -2,7 +2,6 @@ var ThreadMaker = {
   threads: [],
   groups: {},
   create: function(data) {
-    console.log(data)
     data.forEach(function(t) {
       var thread = {
         id: t.id,
@@ -19,7 +18,7 @@ var ThreadMaker = {
           if(header.name == "Subject") message.subject = header.value;
         }.bind(this));
         m.payload.parts.forEach(function(part) {
-          if(part.body.attachmentId){
+          if(part.body.attachmentId && part.filename){
             var type = part.filename.split(".");
             type = type[1] ? type[1] : type[0];
             message.attachments = [];
@@ -28,9 +27,9 @@ var ThreadMaker = {
               name: part.filename,
               id: part.body.attachmentId
             })
+            thread.messages.push(message);
           }
         });
-        thread.messages.push(message);
         thread.date = thread.messages[thread.messages.length-1].date;
         thread.subject = thread.messages[thread.messages.length-1].subject;
         thread.messageCount = thread.messages.length;
@@ -41,8 +40,9 @@ var ThreadMaker = {
   },
   makeGroups: function() {
     this.threads.forEach(function(thread) {
-      this.groups[thread.date] = this.groups[thread.date] || []
-      this.groups[thread.date].push(thread);
+      var threadDate = new Date(thread.date).toDateString();
+      this.groups[threadDate] = this.groups[threadDate] || []
+      this.groups[threadDate].push(thread);
     }.bind(this))
   }
 }

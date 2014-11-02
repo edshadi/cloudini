@@ -7,7 +7,6 @@ var Message = React.createClass({
     var avatar = this.props.message.participantAvatar ||  chrome.extension.getURL('../images/avatar.jpeg');
     var date = new Date(this.props.message.date).toDateString();
     var attachments = [];
-    console.log(this.props.message)
     if(this.props.message.attachments) {
       this.props.message.attachments.forEach(function(attachment) {
         attachment.read = true;
@@ -34,7 +33,6 @@ var Message = React.createClass({
     if(from[0].length > 1) return from[0].split("@")[0];
     if(from[1]) {
       from = from[1].substring(0, from[1].length - 1);
-      console.log(from.split("@")[0])
       return from.split("@")[0];
     }
     return ""

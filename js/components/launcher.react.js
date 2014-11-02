@@ -9,7 +9,7 @@ var Launcher = React.createClass({
   render: function() {
     return (
       <a href="#" id="cloudini-launcher" onClick={this.props.handleClick}>
-        Cloudini
+        {this.props.label}
       </a>
     );
   }

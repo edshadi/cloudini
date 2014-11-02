@@ -26,16 +26,15 @@ var Cloudini = React.createClass({
   render: function() {
     return (
       <div className="cloudini-container">
-        {this.renderLauncher()}
-        {this.renderSidebar()}
+        {this.state.hidden ? this.renderLauncher() : this.renderSidebar()}
       </div>
     );
   },
   renderLauncher: function() {
-    return(<Launcher handleClick={this.showSidebar.bind(this)} />)
+    return(<Launcher label="+ C" handleClick={this.showSidebar} />)
   },
   renderSidebar: function() {
-    if(!this.state.hidden) return(<Sidebar threadGroups={this.state.threadGroups}/>);
+    return(<Sidebar threadGroups={this.state.threadGroups} hideSidebar={this.showSidebar}/>);
   },
   showSidebar: function(e) {
     e.preventDefault();
