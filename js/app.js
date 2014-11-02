@@ -8,6 +8,8 @@ var cloudini = document.createElement('div');
 cloudini.setAttribute('id', "cloudini");
 
 window.onload = function() {
-  document.body.appendChild(cloudini);
+  var navbar = document.getElementsByClassName("nH w-asV aiw")[0]
+  var navbarParent = navbar.parentElement;
+  navbarParent.insertBefore(cloudini, navbar.nextElementSibling);
   React.renderComponent(<Cloudini />, cloudini);
 }

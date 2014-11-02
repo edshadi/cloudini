@@ -1,16 +1,16 @@
-/** @jsx React.DOM */
+/**
+ * @jsx React.DOM
+ */
 
-var React = require('react')
-  , ThreadGroup = require('./thread-group.react')
-  , SidebarHeader = require('./sidebar-header.react')
-  , ThreadStore = require('../stores/thread-store')
-  ;
-
-module.exports = React.createClass({
-
+var React = require('react');
+var Sidebar = require('./sidebar.react');
+var ThreadStore = require('../stores/thread-store');
+var Launcher = require('./launcher.react');
+var Cloudini = React.createClass({
   getInitialState: function() {
     return {
-      threadGroups: {}
+      threadGroups: {},
+      hidden: true
     }
   },
 
@@ -23,41 +23,25 @@ module.exports = React.createClass({
     ThreadStore.fromFirebaseCache();
   },
 
-  handleClick: function() {
-    event.preventDefault();
-
-    var threadGroups = this.state.threadGroups;
-    threadGroups.push(
-      {}
-    );
-    this.setState({
-      threadGroups: threadGroups
-    })
-  },
-
-  refresh: function() {
-    event.preventDefault();
-    ThreadStore.newCache();
-  },
-
   render: function() {
-    var groups = [];
-    Object.keys(this.state.threadGroups).forEach(function(key) {
-      var group = {
-        date: key,
-        threads: this.state.threadGroups[key]
-      }
-      groups.push(
-        <ThreadGroup key={key} group={group} />
-      );
-    }.bind(this))
     return (
-      <div id="sidebar">
-        <SidebarHeader fileStream="INBOX"/>
-        <div id="sidebar-body">
-          {groups}
-        </div>
+      <div className="cloudini-container">
+        {this.renderLauncher()}
+        {this.renderSidebar()}
       </div>
     );
+  },
+  renderLauncher: function() {
+    return(<Launcher handleClick={this.showSidebar.bind(this)} />)
+  },
+  renderSidebar: function() {
+    if(!this.state.hidden) return(<Sidebar threadGroups={this.state.threadGroups}/>);
+  },
+  showSidebar: function(e) {
+    e.preventDefault();
+    this.setState({ hidden: !this.state.hidden });
   }
+
 });
+
+module.exports = Cloudini;

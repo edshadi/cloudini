@@ -18,6 +18,20 @@ ul {
   sidebar
 */
 #cloudini {
+  float: right;
+  margin-right: 1em;
+}
+#cloudini-launcher {
+  max-height: 5%;
+  min-height: 0;
+  font-size: 1em;
+  background: none;
+  top: 0;
+  right: 0;
+  color: orange;
+}
+
+#sidebar {
   position: fixed;
   z-index: 9999;
   right: 0;
@@ -30,11 +44,6 @@ ul {
   z-index: 1000;
   padding: 0;
   font-size: 1.4em;
-}
-
-#sidebar {
-  width: 100%;
-  overflow: scroll;
 }
 
 #sidebar-header {
