@@ -84,7 +84,7 @@ module.exports = {
   fromFirebaseCache: function(callback) {
     var fb = new Firebase('https://cloudini-extension.firebaseio.com/')
     fb.child("users/edshadi").on("value", function(snapshot) {
-      this.emit('threadChange', snapshot.val().threads);
+      this.emit('threadChange', snapshot.val().groups);
     }.bind(this));
   },
   newCache: function() {

@@ -87,6 +87,7 @@ var App = (function() {
         fb.set(data);
       }.bind(this))
     },
+
     archiveGroups: function() {
       // console.log(this.rawThreads)
       this.getProfile(function() {
@@ -95,10 +96,28 @@ var App = (function() {
         var data = {}
         var username = this.profile.emailAddress.split("@")[0];
         data[username] = {
-          threads: ThreadMaker.groups
+          groups: this.sortThreads(ThreadMaker.groups)
         }
         fb.set(data);
       }.bind(this))
+    },
+    sortThreads: function(threads) {
+      var sortedThreads = [];
+      var sortedDates = Object.keys(threads).sort(this.sortDateDesc);
+      sortedDates.forEach(function(date) {
+        sortedThreads.push({
+          date: date,
+          threads: threads[date]
+        });
+      })
+      return sortedThreads;
+    },
+    sortDateDesc: function (date1, date2) {
+      date1 = new Date(date1)
+      date2 = new Date(date2)
+      if (date1 > date2) return -1;
+      if (date1 < date2) return 1;
+      return 0;
     },
     archive: function() {
       this.getProfile(function() {

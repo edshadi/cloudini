@@ -28,7 +28,7 @@ ul {
   background: none;
   top: 0;
   right: 0;
-  color: orange;
+  color: rgb(31, 46, 61);
 }
 
 #sidebar {
@@ -105,6 +105,7 @@ ul {
 }
 
 .thread-file {
+  font-size: 0.8em;
   border: 0.2em solid #000;
   padding: 0.4em;
   height: 10%;

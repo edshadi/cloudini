@@ -9,13 +9,13 @@ var React = require('react')
 var Sidebar = React.createClass({
   render: function() {
     var groups = [];
-    Object.keys(this.props.threadGroups).forEach(function(key) {
+    this.props.threadGroups.forEach(function(group) {
       var group = {
-        date: key,
-        threads: this.props.threadGroups[key]
+        date: group.date,
+        threads: group.threads
       }
       groups.push(
-        <ThreadGroup key={key} group={group} />
+        <ThreadGroup key={group.date} group={group} />
       );
     }.bind(this))
     return (
