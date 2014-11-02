@@ -5,7 +5,7 @@ var Attachment = require('./attachment.react');
 var Message = React.createClass({
   render: function() {
     var avatar = this.props.message.participantAvatar ||  chrome.extension.getURL('../images/avatar.jpeg');
-    var date = new Date(this.props.message.date).toDateString();
+    var date = new Date(this.props.message.date).toLocaleTimeString()
     var attachments = [];
     if(this.props.message.attachments) {
       this.props.message.attachments.forEach(function(attachment) {

@@ -65,7 +65,7 @@ ul {
 */
 
 .thread-group-date {
-  font-size: 0.8em;
+  font-size: 0.7em;
   padding-bottom: 0.6em;
 }
 
@@ -246,8 +246,9 @@ img.envelope {
 }
 
 .participant-gravatar img {
-  height: 1.7em;
-  width: 1.7em;
+  height: 1.2em;
+  width: 1.2em;
+  margin: 0 0.25em;
   border-radius: 1em;
 }
 
