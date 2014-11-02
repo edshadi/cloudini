@@ -82,8 +82,10 @@ module.exports = {
     this.emit('threadChange', groups);
   },
   fromFirebaseCache: function(callback) {
-    threadMaker.create(firebaseCache.edshadi.threads);
-    this.emit('threadChange', threadMaker.groups);
+    var fb = new Firebase('https://cloudini-extension.firebaseio.com/')
+    fb.child("users/edshadi").on("value", function(snapshot) {
+      this.emit('threadChange', snapshot.val().threads);
+    }.bind(this));
   },
   newCache: function() {
     var groups = makeGroups(cacheStore);

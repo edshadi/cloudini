@@ -1,7 +1,8 @@
-module.exports = {
+var ThreadMaker = {
   threads: [],
   groups: {},
   create: function(data) {
+    console.log(data)
     data.forEach(function(t) {
       var thread = {
         id: t.id,

@@ -43,7 +43,7 @@ var App = (function() {
       this.threads.slice(0, 20).forEach(function(thread) {
         this.getThread(thread.id)
       }.bind(this))
-      this.archiveThreads();
+      this.archiveGroups();
     },
     getMessage: function(id) {
       var url = 'https://www.googleapis.com/gmail/v1/users/me/messages/'+id;
@@ -83,6 +83,19 @@ var App = (function() {
         var username = this.profile.emailAddress.split("@")[0];
         data[username] = {
           threads: this.rawThreads
+        }
+        fb.set(data);
+      }.bind(this))
+    },
+    archiveGroups: function() {
+      // console.log(this.rawThreads)
+      this.getProfile(function() {
+        ThreadMaker.create(this.rawThreads);
+        var fb = new Firebase('https://cloudini-extension.firebaseio.com/users')
+        var data = {}
+        var username = this.profile.emailAddress.split("@")[0];
+        data[username] = {
+          threads: ThreadMaker.groups
         }
         fb.set(data);
       }.bind(this))
