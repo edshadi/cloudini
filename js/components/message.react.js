@@ -8,10 +8,11 @@ var Message = React.createClass({
     var date = new Date(this.props.message.date).toLocaleTimeString()
     var attachments = [];
     if(this.props.message.attachments) {
-      this.props.message.attachments.forEach(function(attachment) {
+      this.props.message.attachments.forEach(function(attachment, i) {
         attachment.read = true;
-        attachments.push(<Attachment attachment={attachment} />);
-      });
+        var attId = (i+1)/10
+        attachments.push(<Attachment attachment={attachment} attId={attId}/>);
+      }.bind(this));
     }
     return (
       <div className="message-participant">

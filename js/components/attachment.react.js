@@ -31,11 +31,11 @@ var Attachment = React.createClass({
   },
 
   attid: function() {
-    return "attid="+1/10; // google indexes attachements per message: 0.1, 0.2, etc.
+    return "attid="+this.props.attId; // google indexes attachements per message: 0.1, 0.2, etc.
   },
 
   th: function() {
-    return "th="+this.attachment.id.split(":")[0];
+    return "th="+this.props.attachment.messageId;
   },
 
   baseActionLink: function() {

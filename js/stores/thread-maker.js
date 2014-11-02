@@ -26,7 +26,8 @@ var ThreadMaker = {
               message.attachments.push({
                 type: type,
                 name: part.filename,
-                id: part.body.attachmentId
+                id: part.body.attachmentId,
+                messageId: m.id
               })
             }
           });
